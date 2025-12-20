@@ -11,13 +11,13 @@ const SalonDetail = () => {
   if (!salon) return <Layout><div className="text-center py-5"><h4>Salon not found</h4></div></Layout>;
 
   const galleryImages = [
-    "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1621605815841-aa897bd40742?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1595476108010-b4d1f8c2b1b1?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+    "/images/image2.jpeg",
+    "/images/image1.jpeg",
+    "/images/image3.jpeg",
+    "/images/image4.jpeg",
+    "/images/image5.jpeg",
+    "/images/image6.jpeg",
+    "/images/image7.jpeg",
   ];
 
   const PAGE_MAX_WIDTH = '1400px';
@@ -98,7 +98,7 @@ const SalonDetail = () => {
                     {salon.services.map((s) => (
                       <div key={s.id} className="list-group-item p-3 d-flex justify-content-between">
                         <div><div className="fw-bold small">{s.name}</div><small className="text-muted">{s.duration}m</small></div>
-                        <div className="fw-bold text-primary">₹{s.price}</div>
+                        <div className="fw-bold text-$dark">₹{s.price}</div>
                       </div>
                     ))}
                   </div>
