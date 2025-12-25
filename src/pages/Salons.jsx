@@ -248,7 +248,7 @@ const Salons = () => {
                     }}
                     title="Add New Salon"
                   >
-                    <i className="bi bi-plus"></i>
+                    {/* <i className="bi bi-plus"></i> */}
                     <span className="d-none d-md-inline  p-1">Add Salon</span>
                     <span className="d-md-none   d-sm-inline">Add</span>
                     {/* <span className="d-sm-none">+</span> */}
@@ -345,13 +345,15 @@ const Salons = () => {
                         gap: '0.25rem',
                         minWidth: 'auto',
                         width: 'auto',
-                        maxWidth: 'fit-content'
+                        // maxWidth: 'fit-content'
+                        height: "36px",
+                        width: "56px",
                       }}
                       title="Add New Salon"
                     >
-                      <i className="bi bi-plus"></i>
+                      {/* <i className="bi bi-plus"></i> */}
                       <span className="d-sm-inline">Add</span>
-                      {/* <span className="d-sm-none">+</span> */}
+                      {/* <span className="d-sm-none    height: 36px;">+</span> */}
                     </button>
                   </div>
                 </div>
@@ -404,10 +406,18 @@ const Salons = () => {
                       ★ {salon.rating}
                     </span>
                   </div>
-                  <div className="text-muted mb-2 small">
-                    <i className="bi bi-geo-alt me-1"></i>
-                    {salon.city}
+
+                  <div className="d-flex justify-content-between align-items-start mb-1">
+                    <h6 className="card-title mb-0 fw-bold text-truncate text-muted mb-2 small" style={{ fontSize: '0.95rem' }}>
+                      <i className="bi bi-geo-alt me-1"></i>
+                      {salon.city}
+                    </h6>
+                    <span className="badge bg-warning-subtle text-dark border-0 p-1 d-flex align-items-center gap-1" style={{ fontSize: '0.75rem' }}>
+                      <i className={`bi ${salon.gender === 'Male' ? 'bi-gender-male' : 'bi-gender-female'}`}></i>
+                      {salon.gender}
+                    </span>
                   </div>
+
                   <div className="mt-auto">
                     <StatusBadge status={salon.status} size="sm" />
                   </div>
@@ -702,12 +712,13 @@ const Salons = () => {
 
                           <button
                             type="button"
-                            className="btn btn-outline-danger"
+                            className="btn btn-outline-danger btn-sm px-1"
                             onClick={() => removeService(index)}
                             disabled={formData.services.length === 1}
                           >
-                            <i className="bi bi-trash"></i> Remove
+                            <i className="bi bi-trash"></i>
                           </button>
+
                         </div>
                       ))}
                       <button
@@ -782,7 +793,7 @@ const Salons = () => {
                     {/* Working Day */}
                     <div className="col-12 col-md-4">
                       <label className="form-label fw-semibold">
-                        Day <span className="text-danger">*</span>
+                        Holiday <span className="text-danger">*</span>
                       </label>
                       <select
                         className="form-select"
@@ -804,7 +815,7 @@ const Salons = () => {
                     </div>
 
                     {/* Description */}
-                    <div className="col-12">
+                    {/* <div className="col-12">
                       <label className="form-label fw-semibold">Description</label>
                       <textarea
                         className="form-control"
@@ -815,7 +826,7 @@ const Salons = () => {
                         disabled={isSubmitting}
                         placeholder="Enter service details..."
                       />
-                    </div>
+                    </div> */}
 
                     {/* Images */}
                     <div className="col-12">
@@ -832,15 +843,15 @@ const Salons = () => {
                         />
                         <label
                           htmlFor="file-upload-box"
-                          className="d-flex flex-column align-items-center justify-content-center p-4 border rounded bg-light text-secondary cursor-pointer w-50"
+                          className="d-flex bg2 flex-column align-items-center justify-content-center p-4 border rounded bg-light text-secondary cursor-pointer"
                           style={{ borderStyle: 'dashed !important', borderWidth: '2px', cursor: 'pointer' }}
                         >
-                          <div className="mb-2 p-3 rounded-circle bg-white shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                          <div className="mb-2 p-3 bg3 rounded-circle bg-white shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
                               <path fillRule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.614 14.118 11.002 12.244 11.002h-2.026a.5.5 0 0 1-.5-.5V7.854l1.646 1.647a.5.5 0 0 0 .708-.708l-2.5-2.5a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 1 0 .708.708L7.5 7.854V10.5a.5.5 0 0 1-.5.5h-1.793c-2.112 0-3.518-1.559-3.518-3.468C1.696 5.996 2.825 4.515 4.406 1.342z" />
                             </svg>
                           </div>
-                          <span className="fw-medium text-dark">Click to upload images</span>
+                          <span className="fw-medium text-dark bg1">Click to upload images</span>
                         </label>
                       </div>
 

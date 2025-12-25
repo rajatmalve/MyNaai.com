@@ -210,7 +210,7 @@ body::-webkit-scrollbar-thumb,
 
 .searchIcon {
   width: 17px;
-  
+
 }
 
 .border {
@@ -247,8 +247,10 @@ body::-webkit-scrollbar-thumb,
 } */
 
 .form-control:focus {
-  border-color: #ced4da !important; /* normal grey */
-  box-shadow: none !important;      /* blue glow remove */
+  border-color: #ced4da !important;
+  /* normal grey */
+  box-shadow: none !important;
+  /* blue glow remove */
 }
 
 
@@ -260,14 +262,15 @@ body::-webkit-scrollbar-thumb,
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem; 
+  padding: 1rem;
   position: relative;
   overflow: hidden;
 
-  background-image: url("/images/login_page_image.png");  display: flex;
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
+  background-image: url("/images/login_page_image.png");
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .login-container::before {
@@ -285,12 +288,12 @@ background-repeat: no-repeat;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px; 
-  box-shadow: 
+  border-radius: 20px;
+  box-shadow:
     0 20px 40px -10px rgba(15, 28, 26, 0.25),
     0 0 0 1px rgba(255, 255, 255, 0.05);
   width: 100%;
-  max-width: 420px; 
+  max-width: 420px;
   padding: 2rem;
   position: relative;
   overflow: hidden;
@@ -302,7 +305,7 @@ background-repeat: no-repeat;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px; 
+  height: 3px;
   background: linear-gradient(90deg, #A45B06, #AF955B, #465B57);
 }
 
@@ -338,7 +341,7 @@ background-repeat: no-repeat;
 } */
 
 .login-title {
-  font-size: 1.75rem; 
+  font-size: 1.75rem;
   font-weight: 700;
   color: #0F1C1A;
   text-align: center;
@@ -358,7 +361,7 @@ background-repeat: no-repeat;
 } */
 
 .form-group {
-  margin-bottom: 1.25rem; 
+  margin-bottom: 1.25rem;
 }
 
 .form-label {
@@ -367,11 +370,12 @@ background-repeat: no-repeat;
   align-items: center;
   font-weight: 600;
   color: #0F1C1A;
-  margin-bottom: 0.5rem; 
-  font-size: 0.9rem; 
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.forgot-link, .register-link {
+.forgot-link,
+.register-link {
   color: #A45B06;
   text-decoration: none;
   font-size: 0.8rem;
@@ -379,7 +383,8 @@ background-repeat: no-repeat;
   transition: all 0.2s ease;
 }
 
-.forgot-link:hover, .register-link:hover {
+.forgot-link:hover,
+.register-link:hover {
   color: #AF955B;
   text-decoration: underline;
 }
@@ -390,7 +395,7 @@ background-repeat: no-repeat;
 
 .form-input {
   width: 100%;
-  padding: 0.75rem 1rem; 
+  padding: 0.75rem 1rem;
   border: 2px solid #E5EFEE;
   border-radius: 10px;
   font-size: 0.95rem;
@@ -398,7 +403,7 @@ background-repeat: no-repeat;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   font-weight: 500;
-  height: 48px; 
+  height: 48px;
   box-sizing: border-box;
 }
 
@@ -422,7 +427,8 @@ background-repeat: no-repeat;
 .error-message {
   background: linear-gradient(135deg, #fee2e2, #fecaca);
   color: #991b1b;
-  padding: 0.75rem 1rem; /* Reduced height */
+  padding: 0.75rem 1rem;
+  /* Reduced height */
   border-radius: 10px;
   border-left: 3px solid #ef4444;
   font-size: 0.85rem;
@@ -432,7 +438,8 @@ background-repeat: no-repeat;
 
 .submit-btn {
   width: 100%;
-  padding: 0.875rem 1rem; /* Reduced height */
+  padding: 0.875rem 1rem;
+  /* Reduced height */
   background: linear-gradient(135deg, #A45B06 0%, #AF955B 100%);
   color: white;
   border: none;
@@ -444,7 +451,8 @@ background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
   margin-bottom: 1rem;
-  height: 44px; /* Fixed smaller height */
+  height: 44px;
+  /* Fixed smaller height */
   box-sizing: border-box;
 }
 
@@ -475,14 +483,20 @@ background-repeat: no-repeat;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .divider {
   position: relative;
   text-align: center;
-  margin: 1.25rem 0; /* Reduced spacing */
+  margin: 1.25rem 0;
+  /* Reduced spacing */
 }
 
 .divider::before {
@@ -506,7 +520,8 @@ background-repeat: no-repeat;
 
 .guest-btn {
   width: 100%;
-  padding: 0.875rem 1rem; /* Reduced height */
+  padding: 0.875rem 1rem;
+  /* Reduced height */
   background: transparent;
   color: #465B57;
   border: 2px solid #E5EFEE;
@@ -515,7 +530,8 @@ background-repeat: no-repeat;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  height: 44px; /* Fixed smaller height */
+  height: 44px;
+  /* Fixed smaller height */
   box-sizing: border-box;
 }
 
@@ -546,10 +562,10 @@ background-repeat: no-repeat;
 
 
 @media (max-width: 320px) {
- .mt{
-  margin-top: 12px;
-   margin: '27px'
-}
+  .mt {
+    margin-top: 12px;
+    margin: '27px'
+  }
 }
 
 
@@ -560,13 +576,14 @@ background-repeat: no-repeat;
     margin: 0.5rem;
     max-width: 95%;
   }
-  
+
   .login-title {
     font-size: 1.5rem;
   }
-  
+
   .form-input {
-    font-size: 16px !important; /* Prevents zoom on iOS */
+    font-size: 16px !important;
+    /* Prevents zoom on iOS */
   }
 }
 
@@ -575,19 +592,19 @@ background-repeat: no-repeat;
   .sidebar {
     width: 100%;
   }
-  
+
   .card-body {
     padding: 0.75rem !important;
   }
-  
+
   .modal-dialog {
     margin: 0.5rem !important;
   }
-  
+
   .table-responsive {
     font-size: 0.85rem;
   }
-  
+
   .btn-sm {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
@@ -615,11 +632,7 @@ img {
 
 /* Better mobile touch targets */
 @media (max-width: 768px) {
-  button, a, .btn {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
+
   .page-link {
     min-height: 36px !important;
     min-width: 36px !important;
@@ -631,15 +644,15 @@ img {
   .modal-dialog {
     max-width: calc(100% - 1rem) !important;
   }
-  
+
   .modal-content {
     border-radius: 0.5rem !important;
   }
-  
+
   .modal-body {
     padding: 1rem !important;
   }
-  
+
   .modal-footer {
     padding: 0.75rem !important;
   }
@@ -648,24 +661,28 @@ img {
 /* Gallery */
 
 .gallery-scroll-container {
-              scroll-behavior: smooth;
-            }
-            .gallery-scroll-container::-webkit-scrollbar { 
-              height: 6px;  
-            }
-            .gallery-scroll-container::-webkit-scrollbar-track { 
-              background: #f1f1f1; 
-              border-radius: 10px; 
-            }
-            .gallery-scroll-container::-webkit-scrollbar-thumb { 
-              background: #ccc; 
-              border-radius: 10px; 
-            }
-            .gallery-scroll-container::-webkit-scrollbar-thumb:hover { 
-              background: #999; 
-            }
+  scroll-behavior: smooth;
+}
 
- /* .gallery-scroll-container::-webkit-scrollbar {
+.gallery-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.gallery-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.gallery-scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.gallery-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* .gallery-scroll-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -680,7 +697,7 @@ img {
 
 .cursor-pointer {
   cursor: pointer;
-} */ 
+} */
 
 
 
@@ -705,15 +722,15 @@ img {
 
 /* toolbar */
 
-.border1{
+.border1 {
 
-border-radius: 12px;
+  border-radius: 12px;
 }
 
 /*salon managment button modal ui*/
-.button1{
+.button1 {
 
-background-color: #8c4d05;
+  background-color: #8c4d05;
 }
 
 
@@ -723,13 +740,14 @@ background-color: #8c4d05;
   .page-header-fixed {
     z-index: 1060 !important;
   }
-  
+
   /* Dropdown overlay fix */
   .dropdown-menu,
   .page-dropdown {
     position: fixed !important;
     z-index: 1080 !important;
-    top: 85px !important; /* Header height के बाद */
+    top: 85px !important;
+    /* Header height के बाद */
     right: 16px !important;
     left: auto !important;
     min-width: 220px;
@@ -738,9 +756,9 @@ background-color: #8c4d05;
     background: #1a2a2a;
     border: 1px solid #2d4a47;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
-  
+
   /* Bootstrap dropdown fix */
   .dropdown-menu.show {
     display: block !important;
@@ -749,6 +767,7 @@ background-color: #8c4d05;
 
 /* Desktop dropdown */
 @media (min-width: 769px) {
+
   .dropdown-menu,
   .page-dropdown {
     position: absolute !important;
@@ -763,31 +782,32 @@ background-color: #8c4d05;
 /* salon managment  add update button bg-color*/
 
 .buttoncolor {
-background: linear-gradient(145deg, #e1b378, #d4a768);
-border: none;
-border-radius: 8px;
-color: #2d1b0f;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.2s ease;
+  background: linear-gradient(145deg, #e1b378, #d4a768);
+  border: none;
+  border-radius: 8px;
+  color: #2d1b0f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .buttoncolor:hover {
-background: linear-gradient(145deg, #d4a768, #c89d5a);
-transform: translateY(-1px);
-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(145deg, #d4a768, #c89d5a);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .buttoncolor:active {
-transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* Responsive button sizes */
 @media (max-width: 576px) {
   .buttoncolor {
-    font-size: 11px;
+    font-size: 12px;
     padding: 0.2rem 0.35rem;
     border-radius: 6px;
+    height: 36px;
   }
 }
 
@@ -825,15 +845,16 @@ transform: translateY(0);
   top: 0 !important;
   z-index: 10 !important;
   background: white !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
   .bookings-filter-sticky {
-    top: 3.5rem; /* Mobile header के नीचे */
+    top: 3.5rem;
+    /* Mobile header के नीचे */
     z-index: 1020;
   }
-  
+
   /* Mobile cards scrollable area */
   .bookings-mobile-cards {
     max-height: calc(100vh - 220px);
@@ -852,7 +873,7 @@ transform: translateY(0);
   }
 
   .bookings-mobile-cards .card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   /* Mobile filters improvements */
@@ -864,12 +885,13 @@ transform: translateY(0);
     /* Better form controls on mobile */
     .bookings-mobile-cards .form-control,
     .bookings-mobile-cards .form-select {
-      font-size: 16px !important; /* Prevents zoom on iOS */
+      font-size: 16px !important;
+      /* Prevents zoom on iOS */
     }
   }
-  
+
   /* Mobile header height के बाद content start हो */
-  .mobile-header-fixed + * {
+  .mobile-header-fixed+* {
     margin-top: 0;
   }
 }
@@ -926,39 +948,45 @@ transform: translateY(0);
 }
 
 @media (max-width: 768px) {
-  .pagination-container { 
-    min-width: 220px !important; 
-    order: -1 !important; /* Mobile पर Pagination पहले */
+  .pagination-container {
+    min-width: 220px !important;
+    order: -1 !important;
+    /* Mobile पर Pagination पहले */
   }
-  
+
   /* Better spacing on mobile */
   .container-fluid {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
   }
-  
+
   /* Card improvements */
   .card {
     border-radius: 0.5rem !important;
   }
-  
+
   /* Form improvements */
-  .form-control, .form-select {
-    font-size: 16px !important; /* Prevents zoom on iOS */
+  .form-control,
+  .form-select {
+    font-size: 16px !important;
+    /* Prevents zoom on iOS */
   }
-  
+
   /* Better table on tablets */
   .table-responsive {
     border-radius: 0.5rem;
   }
-  
+
   /* Modal improvements */
-  .modal-header, .modal-footer {
+  .modal-header,
+  .modal-footer {
     padding: 0.75rem 1rem !important;
   }
-  
+
   /* Better button spacing */
-  .btn-group, .d-flex.gap-2, .d-flex.gap-3 {
+  .btn-group,
+  .d-flex.gap-2,
+  .d-flex.gap-3 {
     gap: 0.5rem !important;
   }
 }
@@ -968,7 +996,7 @@ transform: translateY(0);
   .sidebar {
     width: 200px;
   }
-  
+
   /* .card-body {
     padding: 1.25rem !important;
   } */
@@ -988,7 +1016,7 @@ transform: translateY(0);
     width: 4px;
     height: 4px;
   }
-  
+
   .thin-scrollbar::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 2px;
@@ -997,13 +1025,31 @@ transform: translateY(0);
 
 /* Responsive text sizes */
 @media (max-width: 576px) {
-  h1 { font-size: 1.5rem !important; }
-  h2 { font-size: 1.25rem !important; }
-  h3 { font-size: 1.1rem !important; }
-  h4, h5, h6 { font-size: 1rem !important; }
-  
-  .fs-5 { font-size: 1rem !important; }
-  .fs-6 { font-size: 0.9rem !important; }
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem !important;
+  }
+
+  .fs-5 {
+    font-size: 1rem !important;
+  }
+
+  .fs-6 {
+    font-size: 0.9rem !important;
+  }
 }
 
 /* Better input groups on mobile */
@@ -1011,7 +1057,7 @@ transform: translateY(0);
   .input-group {
     flex-wrap: wrap;
   }
-  
+
   .input-group-text {
     padding: 0.375rem 0.5rem;
   }
@@ -1024,7 +1070,7 @@ transform: translateY(0);
     top: 0 !important;
     z-index: 1020 !important;
   }
-  
+
   /* Reduce sticky header height on mobile */
   .sticky-top .card {
     margin-bottom: 0.75rem !important;
@@ -1034,15 +1080,42 @@ transform: translateY(0);
 
 /*busness hour*/
 
-.bg{
-
+.bg {
   background-color: #e1b378;
-    border: none;
-    border-radius: 8px;
-    color: #2d1b0f;
-    font-weight: 600;
-    height: 42px;
+  border: none;
+  border-radius: 8px;
+  color: #2d1b0f;
+  font-weight: 600;
+  height: 42px;
+  font-size: 13px;
 }
+
+.bg1 {
+  border: none;
+  border-radius: 8px;
+  color: #2d1b0f;
+  font-weight: 600;
+  width: 59px;
+  font-size: 5px;
+}
+
+.bg2 {
+  border: none;
+  border-radius: 8px;
+  color: #2d1b0f;
+  font-weight: 600;
+  height: 4px;
+  width: 4px;
+  font-size: 6px;
+}
+
+.bg3{
+  color: #2d1b0f;
+  height: 4px;
+  width: 4px;
+  font-size: 6px;
+}
+
 /* Salon Detail Mobile Responsive */
 @media (max-width: 991px) {
   .salon-detail-wrapper {
