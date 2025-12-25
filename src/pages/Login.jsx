@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,15 +17,31 @@ const Login = () => {
       setError("Please enter email and password");
       return;
     }
-
     setLoading(true);
     setError("");
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try{
+      const resposne = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/login`,
+      {email,password}
+      );
+   
+
+    if(resposne.data?.status === "SUCCESS"){
+      localStorage.setItem("token", resposne.data.data.token);
+
+      alert("Login Successfull");
+      //naviagte
       navigate("/");
-    }, 1500);
+    }else{
+      setError(resposne.data?.message || "Login Failed")
+    }
+  }catch(error){
+    console.log(error);
+    setError(error.resposne?.data.message || "Something went wrong. Please try again.");
+  }
+  finally{
+    setLoading(false);
+  }
   };
 
   return (
