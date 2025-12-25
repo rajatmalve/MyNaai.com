@@ -54,15 +54,9 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+            <label className="form-label d-flex flex-column  justify-content-between align-items-start ">
               <span>Password</span>
-              <a
-                href="#"
-                className="forgot-link text-nowrap"
-                onClick={(e) => e.preventDefault()}
-              >
-                Forgot Password?
-              </a>
+              
             </label>
 
             <div className="input-wrapper position-relative">
@@ -103,18 +97,16 @@ const Login = () => {
             )}
           </button>
 
-          {/* <div className="divider">
-            <span>or</span>
-          </div> */}
-
-          {/* <button
-            type="button"
-            className="guest-btn"
-            onClick={() => navigate("/")}
-            disabled={loading}
-          >
-            Continue as Guest
-          </button> */}
+         <label className="form-label d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+              {/* <span>Forgot Password?</span> */}
+              <a
+                href="#"
+                className="forgot-link text-nowrap"
+                onClick={(e) => e.preventDefault()}
+              >
+                Forgot Password?
+              </a>
+            </label>
         </form>
 
         <div className="login-footer">

@@ -7,7 +7,7 @@ import Pagination from "../components/Pagination.jsx";
 import StatusBadge from "../components/StatusBadge.jsx";
 import { salons as salonData, cities } from "../data/mockData.js";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 20;
 
 const Salons = () => {
   const navigate = useNavigate();
@@ -28,10 +28,25 @@ const Salons = () => {
     address: "",
     rating: 4.5,
     status: "active",
-    services: [],
-    openingTime: "9:00 AM - 9:00 PM",
-    images: []
+    services: [""],
+
   });
+
+  const handleServiceChange = (index, value) => {
+    const newServices = [...formData.services];
+    newServices[index] = value;
+    setFormData({ ...formData, services: newServices });
+  };
+
+  const addService = () => {
+    setFormData({ ...formData, services: [...formData.services, ""] });
+  };
+
+  const removeService = (index) => {
+    const newServices = formData.services.filter((_, i) => i !== index);
+    setFormData({ ...formData, services: newServices });
+  };
+
 
   const filtered = useMemo(() => {
     return salonData.filter((salon) => {
@@ -115,7 +130,7 @@ const Salons = () => {
       images: formData.images.map(img => img.file)
     };
 
-    console.log(`${modalMode === "add" ? "New" : "Updated"} salon:`, submitData);
+    // console.log(`${modalMode === "add" ? "New" : "Updated"} salon:`, submitData);
     handleCloseModal();
     alert(`${modalMode === "add" ? "Salon added" : "Salon updated"} successfully with ${formData.images.length} images!`);
   };
@@ -159,194 +174,191 @@ const Salons = () => {
     <Layout>
       <div className="pb-4 p-md-4">
         <div className="card shadow-sm border-0 mb-3 mb-md-4 sticky-top" style={{ top: '10px', zIndex: '1020' }}>
-  <div className="card-body p-2 p-md-3">
-    {/* DESKTOP LAYOUT */}
-    <div className="d-none d-md-block">
-      <div className="row g-2 g-md-3 align-items-end">
-        
-        {/* LEFT SIDE: Search + Filters */}
-        <div className="col-12 col-lg-7">
-          <div className="row g-2">
-            {/* Search */}
-            <div className="col-12 col-md-6">
-              <SearchInput
-                value={search}
-                onChange={(val) => {
-                  setSearch(val);
-                  setCurrentPage(1);
-                }}
-                placeholder="Search salons..."
-              />
-            </div>
+          <div className="card-body p-2 p-md-3">
+            {/* DESKTOP LAYOUT */}
+            <div className="d-none d-md-block">
+              <div className="row g-2 g-md-3 align-items-end">
 
-            {/* City Filter */}
-            <div className="col-6 col-md-3">
-              <select
-                className="form-select form-select-sm"
-                value={cityFilter}
-                onChange={(e) => { setCityFilter(e.target.value); setCurrentPage(1); }}
-              >
-                <option value="all">All Cities</option>
-                {cities.map((city) => <option key={city} value={city}>{city}</option>)}
-              </select>
-            </div>
+                {/* LEFT SIDE: Search + Filters */}
+                <div className="col-12 col-lg-7">
+                  <div className="row g-2">
+                    {/* Search */}
+                    <div className="col-12 col-md-6">
+                      <SearchInput
+                        value={search}
+                        onChange={(val) => {
+                          setSearch(val);
+                          setCurrentPage(1);
+                        }}
+                        placeholder="Search salons..."
+                      />
+                    </div>
 
-            {/* Status Filter */}
-            <div className="col-6 col-md-3">
-              <select
-                className="form-select form-select-sm"
-                value={statusFilter}
-                onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-              >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-          </div>
-        </div>
+                    {/* City Filter */}
+                    <div className="col-6 col-md-3">
+                      <select
+                        className="form-select form-select-sm"
+                        value={cityFilter}
+                        onChange={(e) => { setCityFilter(e.target.value); setCurrentPage(1); }}
+                      >
+                        <option value="all">All Cities</option>
+                        {cities.map((city) => <option key={city} value={city}>{city}</option>)}
+                      </select>
+                    </div>
 
-        {/* RIGHT SIDE: Pagination + Add Button - FIXED */}
-        <div className="col-12 col-lg-5 d-flex flex-column flex-md-row gap-2 justify-content-end align-items-end pagination-right-section">
-          {/* Pagination */}
-          <div className="d-flex justify-content-end flex-fill order-md-1 me-md-2 pagination-container">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.max(totalPages || 0)} 
-              onPageChange={setCurrentPage}
-              size="sm"
-            />
-          </div>
-
-          {/* Add Button */}
-          <button
-            className="btn btn-sm order-md-2 flex-shrink-0 buttoncolor ms-md-2"
-            onClick={handleAddSalon}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.25rem',
-              minWidth: 'auto',
-              width: 'auto',
-              maxWidth: 'fit-content'
-            }}
-            title="Add New Salon"
-          >
-            <i className="bi bi-plus"></i>
-            <span className="d-none d-md-inline  p-1">Add Salon</span>
-            <span className="d-md-none   d-sm-inline">Add</span>
-            <span className="d-sm-none">+</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    {/* MOBILE LAYOUT */}
-    <div className="d-md-none">
-      <div className="d-flex flex-column gap-2">
-        {/* Row 1: Filter Button (small) | Search (flex-grow) */}
-        <div className="row g-2 align-items-center">
-          <div className="col-auto">
-            <button
-              className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1"
-              onClick={() => setShowMobileFilters(!showMobileFilters)}
-              type="button"
-              style={{ minWidth: 'auto', padding: '0.25rem 0.5rem' }}
-            >
-              <i className="fa-solid fa-filter"></i>
-              {(cityFilter !== "all" || statusFilter !== "all") ? (
-                <span className="badge bg-secondary ms-1" style={{ fontSize: '0.65rem', padding: '0.15rem 0.3rem' }}>!</span>
-              ) : null}
-              <i className={`bi bi-chevron-${showMobileFilters ? 'up' : 'down'} ms-1`}></i>
-            </button>
-          </div>
-          <div className="col">
-            <SearchInput
-              value={search}
-              onChange={(val) => {
-                setSearch(val);
-                setCurrentPage(1);
-              }}
-              placeholder="Search..."
-            />
-          </div>
-        </div>
-
-        {/* Collapsible Filters */}
-        {showMobileFilters && (
-          <div className="card border-0 bg-light">
-            <div className="card-body p-2">
-              <div className="d-flex flex-column gap-2">
-                {/* City Filter */}
-                <div>
-                  <label className="form-label small mb-1 fw-semibold">All Cities</label>
-                  <select
-                    className="form-select form-select-sm"
-                    value={cityFilter}
-                    onChange={(e) => { setCityFilter(e.target.value); setCurrentPage(1); }}
-                  >
-                    <option value="all">All Cities</option>
-                    {cities.map((city) => <option key={city} value={city}>{city}</option>)}
-                  </select>
+                    {/* Status Filter */}
+                    <div className="col-6 col-md-3">
+                      <select
+                        className="form-select form-select-sm"
+                        value={statusFilter}
+                        onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+                      >
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Status Filter */}
-                <div>
-                  <label className="form-label small mb-1 fw-semibold">All Status</label>
-                  <select
-                    className="form-select form-select-sm"
-                    value={statusFilter}
-                    onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+                {/* RIGHT SIDE: Pagination + Add Button - FIXED */}
+                <div className="col-12 col-lg-5 d-flex flex-column flex-md-row gap-2 justify-content-end align-items-end pagination-right-section">
+                  {/* Pagination */}
+                  <div className="d-flex justify-content-end flex-fill order-md-1 me-md-2 pagination-container">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={Math.max(totalPages || 0)}
+                      onPageChange={setCurrentPage}
+                      size="sm"
+                    />
+                  </div>
+
+                  {/* Add Button */}
+                  <button
+                    className="btn btn-sm order-md-2 flex-shrink-0 buttoncolor ms-md-2"
+                    onClick={handleAddSalon}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.25rem',
+                      minWidth: 'auto',
+                      width: 'auto',
+                      maxWidth: 'fit-content'
+                    }}
+                    title="Add New Salon"
                   >
-                    <option value="all">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
+                    <i className="bi bi-plus"></i>
+                    <span className="d-none d-md-inline  p-1">Add Salon</span>
+                    <span className="d-md-none   d-sm-inline">Add</span>
+                    {/* <span className="d-sm-none">+</span> */}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* MOBILE LAYOUT */}
+            <div className="d-md-none">
+              <div className="d-flex flex-column gap-2">
+                {/* Row 1: Filter Button (small) | Search (flex-grow) */}
+                <div className="row g-2 align-items-center">
+                  <div className="col-auto">
+                    <button
+                      className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1"
+                      onClick={() => setShowMobileFilters(!showMobileFilters)}
+                      type="button"
+                      style={{ minWidth: 'auto', padding: '0.25rem 0.5rem' }}
+                    >
+                      <i className="fa-solid fa-filter"></i>
+                      {(cityFilter !== "all" || statusFilter !== "all") ? (
+                        <span className="badge bg-secondary ms-1" style={{ fontSize: '0.65rem', padding: '0.15rem 0.3rem' }}>!</span>
+                      ) : null}
+                      {/* <i className={`bi bi-chevron-${showMobileFilters ? 'up' : 'down'} ms-1`}></i> */}
+                    </button>
+                  </div>
+                  <div className="col">
+                    <SearchInput
+                      value={search}
+                      onChange={(val) => {
+                        setSearch(val);
+                        setCurrentPage(1);
+                      }}
+                      placeholder="Search..."
+                    />
+                  </div>
+                </div>
+
+                {/* Collapsible Filters */}
+                {showMobileFilters && (
+                  <div className="card border-0 bg-light">
+                    <div className="card-body p-2">
+                      <div className="d-flex flex-column gap-2">
+                        {/* City Filter */}
+                        <div>
+                          <label className="form-label small mb-1 fw-semibold">All Cities</label>
+                          <select
+                            className="form-select form-select-sm"
+                            value={cityFilter}
+                            onChange={(e) => { setCityFilter(e.target.value); setCurrentPage(1); }}
+                          >
+                            <option value="all">All Cities</option>
+                            {cities.map((city) => <option key={city} value={city}>{city}</option>)}
+                          </select>
+                        </div>
+
+                        {/* Status Filter */}
+                        <div>
+                          <label className="form-label small mb-1 fw-semibold">All Status</label>
+                          <select
+                            className="form-select form-select-sm"
+                            value={statusFilter}
+                            onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+                          >
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Row 2: Pagination + Add Button */}
+                <div className="row  g-3 align-items-center">
+                  <div className="col-9 d-flex justify-content-end">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={Math.max(totalPages || 0)}
+                      onPageChange={setCurrentPage}
+                      size="sm"
+                    />
+                  </div>
+                  <div className="col-2 d-flex">
+                    <button
+                      className="btn btn-sm flex-shrink-0 buttoncolor"
+                      onClick={handleAddSalon}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.25rem',
+                        minWidth: 'auto',
+                        width: 'auto',
+                        maxWidth: 'fit-content'
+                      }}
+                      title="Add New Salon"
+                    >
+                      <i className="bi bi-plus"></i>
+                      <span className="d-sm-inline">Add</span>
+                      {/* <span className="d-sm-none">+</span> */}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
-
-        {/* Row 2: Pagination + Add Button */}
-        <div className="row  g-2 align-items-center">
-          <div className="col-6 d-flex justify-content-end">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.max(totalPages || 0)} 
-              onPageChange={setCurrentPage}
-              size="sm"
-            />
-          </div>
-          <div className="col-6 d-flex justify-content-end">
-            <button
-              className="btn btn-sm flex-shrink-0 buttoncolor"
-              onClick={handleAddSalon}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.25rem',
-                minWidth: 'auto',
-                width: 'auto',
-                maxWidth: 'fit-content'
-              }}
-              title="Add New Salon"
-            >
-              <i className="bi bi-plus"></i>
-              <span className="d-sm-inline">Add</span>
-              {/* <span className="d-sm-none">+</span> */}
-            </button>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 
         {/* Empty State */}
         {paginated.length === 0 && (
@@ -453,7 +465,7 @@ const Salons = () => {
                 <div className="modal-body p-4" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                   <div className="row g-3 g-md-4" style={{ minHeight: 0 }}>
 
-                    {/* 1. Salon Name - REQUIRED */}
+                    {/* 1. Salon Name */}
                     <div className="col-12 col-md-6">
                       <label className="form-label fw-semibold">Salon Name <span className="text-danger">*</span></label>
                       <input
@@ -468,7 +480,7 @@ const Salons = () => {
                       />
                     </div>
 
-                    {/* 2. Owner Name - OPTIONAL */}
+                    {/* 2. Owner Name */}
                     <div className="col-12 col-md-6">
                       <label className="form-label fw-semibold">Owner Name</label>
                       <input
@@ -482,7 +494,7 @@ const Salons = () => {
                       />
                     </div>
 
-                    {/* 3. Phone Number - REQUIRED */}
+                    {/* 3. Phone Number */}
                     <div className="col-12 col-md-6">
                       <label className="form-label fw-semibold">Phone Number <span className="text-danger">*</span></label>
                       <input
@@ -497,7 +509,7 @@ const Salons = () => {
                       />
                     </div>
 
-                    {/* 4. Email ID - OPTIONAL */}
+                    {/* 4. Email ID */}
                     <div className="col-12 col-md-6">
                       <label className="form-label fw-semibold">Email ID</label>
                       <input
@@ -511,7 +523,7 @@ const Salons = () => {
                       />
                     </div>
 
-                    {/* 5. Address Line - REQUIRED */}
+                    {/* 5. Address Line */}
                     <div className="col-12">
                       <label className="form-label fw-semibold">Address Line <span className="text-danger">*</span></label>
                       <textarea
@@ -526,7 +538,7 @@ const Salons = () => {
                       />
                     </div>
 
-                    {/* 6. City - REQUIRED */}
+                    {/* 6. City */}
                     <div className="col-12 col-md-4">
                       <label className="form-label fw-semibold">City <span className="text-danger">*</span></label>
                       <select
@@ -544,7 +556,7 @@ const Salons = () => {
                       </select>
                     </div>
 
-                    {/* 7. State - REQUIRED */}
+                    {/* 7. State */}
                     <div className="col-12 col-md-4">
                       <label className="form-label fw-semibold">State <span className="text-danger">*</span></label>
                       <select
@@ -564,7 +576,7 @@ const Salons = () => {
                       </select>
                     </div>
 
-                    {/* 8. Pincode - REQUIRED */}
+                    {/* 8. Pincode */}
                     <div className="col-12 col-md-4">
                       <label className="form-label fw-semibold">Pincode <span className="text-danger">*</span></label>
                       <input
@@ -579,6 +591,8 @@ const Salons = () => {
                         maxLength="6"
                       />
                     </div>
+
+                    {/* Salon Type */}
                     <div className="col-12 col-md-6">
                       <label className="form-label fw-semibold mb-2">Salon Type : <span className="text-danger">*</span></label>
                       <div className="d-flex flex-column gap-2">
@@ -595,11 +609,9 @@ const Salons = () => {
                             disabled={isSubmitting}
                           />
                           <label className="form-check-label fw-medium" htmlFor="male">
-                            <i className="bi bi-person-fill text-primary me-2"></i>
-                            Male 
+                            <i className="bi bi-person-fill text-primary me-2"></i>Male
                           </label>
                         </div>
-
                         <div className="form-check">
                           <input
                             className="form-check-input"
@@ -613,11 +625,9 @@ const Salons = () => {
                             disabled={isSubmitting}
                           />
                           <label className="form-check-label fw-medium" htmlFor="female">
-                            <i className="bi bi-person-heart text-danger me-2"></i>
-                            Female
+                            <i className="bi bi-person-heart text-danger me-2"></i>Female
                           </label>
                         </div>
-
                         <div className="form-check">
                           <input
                             className="form-check-input"
@@ -631,28 +641,208 @@ const Salons = () => {
                             disabled={isSubmitting}
                           />
                           <label className="form-check-label fw-medium" htmlFor="unisex">
-                            <i className="bi bi-gender-trans text-success me-2"></i>
-                            Unisex
+                            <i className="bi bi-gender-trans text-success me-2"></i>Unisex
                           </label>
                         </div>
                       </div>
                     </div>
 
-                    {/* 9. Images - OPTIONAL */}
                     <div className="col-12">
-                      <label className="form-label fw-semibold">Salon Images <span className="text-muted small">(Unlimited images, 5MB each)</span></label>
+                      <label className="form-label fw-semibold">Services <span className="text-danger">*</span></label>
+                      {formData.services.map((service, index) => (
+                        <div key={index} className="card mb-3 p-3">
+                          <div className="mb-2">
+                            <div className="row g-2">
+                              <div className="col-12 col-md-4">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Service Name"
+                                  value={service.name}
+                                  onChange={(e) => handleServiceChange(index, 'name', e.target.value)}
+                                  required
+                                />
+                              </div>
+                              <div className="col-12 col-md-4">
+                                <div className="input-group">
+                                  <span className="input-group-text"><i className="bi bi-currency-rupee"></i></span>
+                                  <input
+                                    type="number"
+                                    className="form-control"
+                                    placeholder="Price"
+                                    value={service.price}
+                                    onChange={(e) => handleServiceChange(index, 'price', e.target.value)}
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12 col-md-4">
+                                <div className="input-group">
+                                  <input
+                                    type="number"
+                                    className="form-control"
+                                    placeholder="Duration"
+                                    value={service.duration}
+                                    onChange={(e) => handleServiceChange(index, 'duration', e.target.value)}
+                                    required
+                                  />
+                                  <span className="input-group-text">min</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mt-2">
+                              <textarea
+                                className="form-control"
+                                placeholder="Description"
+                                value={service.description}
+                                onChange={(e) => handleServiceChange(index, 'description', e.target.value)}
+                              />
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger"
+                            onClick={() => removeService(index)}
+                            disabled={formData.services.length === 1}
+                          >
+                            <i className="bi bi-trash"></i> Remove
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="bg"
+                        onClick={addService}
+                      >
+                        Add Service
+                      </button>
+                    </div>
+
+                    {/* Opening Time */}
+                    <div className="col-12 col-md-6">
+                      <label className="form-label fw-semibold">
+                        Opening Time <span className="text-danger">*</span>
+                      </label>
+                      <div className="input-group">
+                        <input
+                          type="time"
+                          className="form-control rounded-start"
+                          name="openingTime"
+                          value={formData.openingTime || ""}
+                          onChange={handleInputChange}
+                          required
+                          disabled={isSubmitting}
+                        />
+                        <select
+                          className="form-select rounded-end"
+                          style={{ maxWidth: "100px" }}
+                          name="openingPeriod"
+                          value={formData.openingPeriod || "AM"}
+                          onChange={handleInputChange}
+                          disabled={isSubmitting}
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Closing Time */}
+                    <div className="col-12 col-md-6">
+                      <label className="form-label fw-semibold">
+                        Closing Time <span className="text-danger">*</span>
+                      </label>
+                      <div className="input-group">
+                        <input
+                          type="time"
+                          className="form-control rounded-start"
+                          name="closingTime"
+                          value={formData.closingTime || ""}
+                          onChange={handleInputChange}
+                          required
+                          disabled={isSubmitting}
+                        />
+                        <select
+                          className="form-select rounded-end"
+                          style={{ maxWidth: "100px" }}
+                          name="closingPeriod"
+                          value={formData.closingPeriod || "PM"}
+                          onChange={handleInputChange}
+                          disabled={isSubmitting}
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+
+                    {/* Working Day */}
+                    <div className="col-12 col-md-4">
+                      <label className="form-label fw-semibold">
+                        Day <span className="text-danger">*</span>
+                      </label>
+                      <select
+                        className="form-select"
+                        name="day"
+                        value={formData.day}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isSubmitting}
+                      >
+                        <option value="">Select Day</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                      </select>
+                    </div>
+
+                    {/* Description */}
+                    <div className="col-12">
+                      <label className="form-label fw-semibold">Description</label>
+                      <textarea
+                        className="form-control"
+                        name="description"
+                        rows="3"
+                        value={formData.description || ""}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                        placeholder="Enter service details..."
+                      />
+                    </div>
+
+                    {/* Images */}
+                    <div className="col-12">
+                      <label className="form-label fw-semibold">Salon Images</label>
                       <div className="position-relative">
                         <input
                           type="file"
-                          className="form-control"
+                          id="file-upload-box"
+                          className="d-none"
                           accept="image/*"
                           multiple
                           onChange={handleImageUpload}
                           disabled={isSubmitting}
                         />
-                        <i className="bi bi-cloud-upload position-absolute end-0 top-50 translate-middle-y me-3 opacity-75"></i>
+                        <label
+                          htmlFor="file-upload-box"
+                          className="d-flex flex-column align-items-center justify-content-center p-4 border rounded bg-light text-secondary cursor-pointer w-50"
+                          style={{ borderStyle: 'dashed !important', borderWidth: '2px', cursor: 'pointer' }}
+                        >
+                          <div className="mb-2 p-3 rounded-circle bg-white shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                              <path fillRule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.614 14.118 11.002 12.244 11.002h-2.026a.5.5 0 0 1-.5-.5V7.854l1.646 1.647a.5.5 0 0 0 .708-.708l-2.5-2.5a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 1 0 .708.708L7.5 7.854V10.5a.5.5 0 0 1-.5.5h-1.793c-2.112 0-3.518-1.559-3.518-3.468C1.696 5.996 2.825 4.515 4.406 1.342z" />
+                            </svg>
+                          </div>
+                          <span className="fw-medium text-dark">Click to upload images</span>
+                        </label>
                       </div>
-
 
                       {formData.images.length > 0 && (
                         <div className="row g-2 mt-3">
@@ -661,35 +851,30 @@ const Salons = () => {
                               <img
                                 src={image.preview}
                                 className="img-fluid rounded shadow-sm border w-100"
-                                style={{
-                                  height: '80px',
-                                  objectFit: 'cover',
-                                  display: 'block'
-                                }}
+                                style={{ height: '80px', objectFit: 'cover', display: 'block' }}
                                 alt={`Preview ${index + 1}`}
                               />
                               <button
                                 type="button"
-                                className="position-absolute top-1 end-1 btn-close btn-close-white rounded-circle shadow p-1"
-                                style={{ fontSize: '0.6rem', width: '22px', height: '22px' }}
+                                className="position-absolute top-0 end-0 m-1 btn btn-danger btn-sm p-0 rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                style={{ width: '20px', height: '20px', lineHeight: 1 }}
                                 onClick={() => removeImage(index)}
                                 disabled={isSubmitting}
-                              />
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                              </button>
                             </div>
                           ))}
-                        </div>
-                      )}
-                      {formData.images.length === 0 && (
-                        <div className="text-center py-4 border-dashed border rounded-3 mt-2 bg-light">
-                          <i className="bi bi-image display-5 text-muted mb-2"></i>
-                          <p className="text-muted mb-0 small"></p>
                         </div>
                       )}
                     </div>
 
                   </div>
                 </div>
-                <div className="modal-footer d-flex flex-column flex-sm-row gap-2 gap-sm-0">
+
+                <div className="modal-footer d-flex flex-sm-row gap-2 gap-sm-0">
                   <button
                     type="button"
                     className="btn btn-secondary order-2 order-sm-1"

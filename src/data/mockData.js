@@ -19,7 +19,7 @@ export const salons = [
     name: "Glamour Studio",
     city: "New York",
     address: "123 Fifth Avenue, Manhattan, NY 10001",
-    phone: "+1 212-555-0101",
+    phone: "+91 2125550101",
     email: "info@glamourstudio.com",
     status: "active",
     rating: 4.8,
@@ -36,13 +36,13 @@ export const salons = [
 
     ],
     services: [
-      { id: "s1", name: "Haircut", duration: 45, price: 50 },
-      { id: "s2", name: "Hair Color", duration: 120, price: 150 },
-      { id: "s3", name: "Blowout", duration: 30, price: 35 },
-      { id: "s4", name: "Deep Conditioning", duration: 45, price: 45 },
-      { id: "s5", name: "Deep Conditioning", duration: 45, price: 45 },
-      { id: "s6", name: "Deep Conditioning", duration: 45, price: 45 },
-      { id: "s7", name: "Deep Conditioning", duration: 45, price: 45 }
+      { id: "s1", name: "Haircut", duration: 45, price: 50, description: "Basic haircut for men and women, includes shampoo and styling." },
+      { id: "s2", name: "Hair Color", duration: 120, price: 150, description: "Professional hair coloring service for all hair types, includes consultation and touch-up." },
+      { id: "s3", name: "Blowout", duration: 30, price: 35, description: "Smooth and shiny blow-dry for a salon-fresh look, perfect for special occasions." },
+      { id: "s4", name: "Deep Conditioning", duration: 45, price: 45, description: "Smoothing treatment for frizzy or curly hair, lasts up to 3 months." },
+      { id: "s5", name: "Deep Conditioning", duration: 45, price: 45, description: "Refreshing facial to cleanse and rejuvenate your skin, suitable for all skin types." },
+      { id: "s6", name: "Deep Conditioning", duration: 45, price: 45, description: "Nail shaping, cuticle care, and polish for a neat and elegant look." },
+      { id: "s7", name: "Deep Conditioning", duration: 45, price: 45, description: "Intensive hair treatment to restore moisture and shine, ideal for dry or damaged hair." }
 
     ],
     openingTime: "09:00",
@@ -54,7 +54,7 @@ export const salons = [
     name: "Serenity Spa & Salon",
     city: "Los Angeles",
     address: "456 Sunset Boulevard, LA 90028",
-    phone: "+1 323-555-0202",
+    phone: "+91 3235550202",
     email: "hello@serenityspa.com",
     status: "active",
     rating: 4.9,
@@ -63,6 +63,9 @@ export const salons = [
       "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800"
     ],
     services: [
+      { id: "s5", name: "Full Body Massage", duration: 60, price: 120 },
+      { id: "s6", name: "Facial Treatment", duration: 45, price: 80 },
+      { id: "s7", name: "Manicure & Pedicure", duration: 60, price: 65 },
       { id: "s5", name: "Full Body Massage", duration: 60, price: 120 },
       { id: "s6", name: "Facial Treatment", duration: 45, price: 80 },
       { id: "s7", name: "Manicure & Pedicure", duration: 60, price: 65 }
@@ -157,7 +160,7 @@ export const salons = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   },
 
- {
+  {
     id: "7",
     name: "Zen Wellness Spa",
     city: "San Francisco",
@@ -179,7 +182,7 @@ export const salons = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   },
 
-   {
+  {
     id: "8",
     name: "Zen Wellness Spa",
     city: "San Francisco",
@@ -201,7 +204,7 @@ export const salons = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   },
 
-   {
+  {
     id: "9",
     name: "Zen Wellness Spa",
     city: "San Francisco",
@@ -223,7 +226,7 @@ export const salons = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   },
 
-   {
+  {
     id: "10",
     name: "Zen Wellness Spa",
     city: "San Francisco",
@@ -245,7 +248,7 @@ export const salons = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   },
 
-   {
+  {
     id: "11",
     name: "Zen Wellness Spa",
     city: "San Francisco",

@@ -25,9 +25,12 @@ const navItems = [
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // Modal state
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  // Modal confirm hone par logout handle karein
+  const handleLogoutConfirm = () => {
+    setShowLogoutModal(false);
     setOpen(false);
     navigate("/login");
   };
@@ -55,7 +58,10 @@ const Layout = ({ children }) => {
           ))}
         </nav>
         <div className="mt-auto">
-          <button className="btn btn-logout btn-sm w-100 mt-3 d-flex align-items-center justify-content-center" onClick={handleLogout}>
+          <button 
+            className="btn btn-logout btn-sm w-100 mt-3 d-flex align-items-center justify-content-center" 
+            onClick={() => setShowLogoutModal(true)} // Modal open karega
+          >
             <Icons.Logout /> Logout
           </button>
         </div>
@@ -67,13 +73,10 @@ const Layout = ({ children }) => {
         <div className="d-md-none">
           <header className="navbar bg-white shadow-sm sticky-top px-2 mobile-header-fixed">
             <div className="d-flex align-items-center justify-content-between w-100">
-
-              {/* Left: Menu + Brand */}
               <div className="d-flex align-items-center gap-2 min-w-0 flex-grow-1">
                 <button
                   className="navbar-toggler p-1 border-0"
                   type="button"
-                  aria-label="Toggle navigation"
                   onClick={() => setOpen(!open)}
                   style={{ fontSize: '1.2rem' }}
                 >
@@ -90,22 +93,20 @@ const Layout = ({ children }) => {
                 </Link>
               </div>
 
-              {/* Right: Logout */}
               <button
                 className="btn btn-outline-secondary btn-sm flex-shrink-0 d-flex align-items-center"
-                onClick={handleLogout}
+                onClick={() => setShowLogoutModal(true)} // Modal open karega
                 style={{ fontSize: '0.85rem' }}
               >
                 <Icons.Logout />
                 <span className="d-none d-sm-inline">Logout</span>
               </button>
-
             </div>
           </header>
 
           {/* Mobile Dropdown Menu */}
           {open && (
-            <div className="bg-white shadow-sm border-bottom d-md-none dropdown-menu page-dropdown dropdown-menu show w-100 position-absolute">
+            <div className="bg-white shadow-sm border-bottom d-md-none dropdown-menu show w-100 position-absolute">
               <nav className="nav flex-column p-3 gap-2">
                 {navItems.map((item) => (
                   <NavLink
@@ -131,6 +132,47 @@ const Layout = ({ children }) => {
           <div className="container-fluid">{children}</div>
         </main>
       </div>
+
+      {/* --- Logout Confirmation Modal --- */}
+      {showLogoutModal && (
+        <div 
+          className="modal fade show d-block" 
+          tabIndex="-1" 
+          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} // Background overlay
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content shadow">
+              <div className="modal-header border-0 pb-0">
+                <h5 className="modal-title">Confirm Logout</h5>
+                <button 
+                  type="button" 
+                  className="btn-close" 
+                  onClick={() => setShowLogoutModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body py-4 text-center">
+                <p className="mb-0 fs-5">Are you sure you want to logout?</p>
+              </div>
+              <div className="modal-footer border-0 pt-0">
+                <button 
+                  type="button" 
+                  className="btn btn-secondary px-4" 
+                  onClick={() => setShowLogoutModal(false)}
+                >
+                  No
+                </button>
+                <button 
+                  type="button" 
+                  className="btn btn-danger px-4" 
+                  onClick={handleLogoutConfirm}
+                >
+                  Yes, Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

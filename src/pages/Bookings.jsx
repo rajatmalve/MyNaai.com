@@ -27,7 +27,7 @@ const Bookings = () => {
         booking.serviceName.toLowerCase().includes(search.toLowerCase());
       return matchesSalon && matchesStatus && matchesDate && matchesSearch;
     });
-    console.log(" FILTERED:", result.length, "bookings");
+    // console.log(" FILTERED:", result.length, "bookings");
     return result;
   }, [salonFilter, statusFilter, dateFilter, search]);
 
@@ -37,7 +37,7 @@ const Bookings = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
-  console.log(" PAGINATION:", { filtered: filtered.length, totalPages, currentPage, ITEMS_PER_PAGE });
+  // console.log(" PAGINATION:", { filtered: filtered.length, totalPages, currentPage, ITEMS_PER_PAGE });
 
   const handleFilterChange = useCallback((setter) => (e) => {
     setter(e.target.value);
@@ -59,8 +59,8 @@ const Bookings = () => {
 
   return (
     <Layout>
-      {/* MAIN WRAPPER - 4 SIDE RESPONSIVE SPACING */}
-      <div className="px-2 px-md-3 px-lg-4 py-2 py-md-3 py-lg-4 min-vh-100 d-flex flex-column gap-3">
+      {/* MAIN WRAPPER - Responsive spacing */}
+      <div className="page-content min-vh-100 d-flex flex-column gap-3 p-4">
         
         {/* FILTERS + PAGINATION - WHITE BACKGROUND CARD (STICKY) */}
         <div className="card shadow-sm mb-1 mb-md-3 bg-white bookings-filter-sticky">
@@ -166,7 +166,7 @@ const Bookings = () => {
                       {(salonFilter !== "all" || statusFilter !== "all" || dateFilter) ? (
                         <span className="badge bg-secondary ms-1" style={{ fontSize: '0.65rem', padding: '0.15rem 0.3rem' }}>!</span>
                       ) : null}
-                      <i className={`bi bi-chevron-${showMobileFilters ? 'up' : 'down'} ms-1`}></i>
+                      {/* <i className={`bi bi-chevron-${showMobileFilters ? 'up' : 'down'} ms-1`}></i> */}
                     </button>
                   </div>
                   <div className="col">
@@ -183,8 +183,8 @@ const Bookings = () => {
 
                 {/* Collapsible Filters */}
                 {showMobileFilters && (
-                  <div className="card border-0 bg-light">
-                    <div className="card-body p-2">
+                  <div className="card border bg-light mt-2">
+                    <div className="card-body p-3">
                       <div className="d-flex flex-column gap-2">
                         {/* All Salons */}
                         <div>
@@ -254,11 +254,11 @@ const Bookings = () => {
         {/* DESKTOP TABLE - SCROLLABLE AREA BELOW STICKY FILTERS */}
         <div
           className="table-responsive d-none d-md-block mb-3 mb-md-4 bg-white bookings-table-scroll"
-          style={{ maxHeight: 'calc(100vh - 220px)', overflow: 'auto' }}
+          style={{ maxHeight: '79vh', overflow: 'auto' }}
         >
           <div style={{ minHeight: '320px', backgroundColor: 'white' }}>
             <table className="table table-hover mb-0" >
-              <thead className="table-light sticky-top bg-white">
+              <thead className="table-light position-sticky top-0 bg-white border-bottom border-2" style={{ zIndex: '10' }}>
                 <tr>
                   <th style={{ minWidth: '140px' }} className="px-2 px-md-3 py-2 border-bottom">User</th>
                   <th style={{ minWidth: '150px' }} className="px-2 px-md-3 py-2 border-bottom">Salon</th>
@@ -268,7 +268,7 @@ const Bookings = () => {
                   <th style={{ minWidth: '120px' }} className="px-2 px-md-3 py-2 border-bottom">Status</th>
                 </tr>
               </thead>
-              <tbody style={{ overflowY: 'auto', maxHeight: '450px' }}>
+              <tbody>
                 {paginated.map((booking) => (
                   <tr key={booking.id}>
                     <td className="fw-semibold px-2 px-md-3 py-2 text-truncate" style={{ maxWidth: '140px' }}>{booking.userName}</td>
@@ -280,7 +280,7 @@ const Bookings = () => {
                         <div className="text-muted">{booking.time}</div>
                       </div>
                     </td>
-                    <td className="fw-semibold text-primary px-2 px-md-3 py-2 ">₹{booking.totalAmount}</td>
+                    <td className="fw-semibold text-black px-2 px-md-3 py-2 ">₹{booking.totalAmount}</td>
                     <td className="px-2 px-md-3 py-2"><StatusBadge status={booking.status} /></td>
                   </tr>
                 ))}
@@ -297,7 +297,7 @@ const Bookings = () => {
         </div>
 
         {/* MOBILE CARDS */}
-        <div className="d-md-none d-grid gap-2 bg-white bookings-mobile-cards">
+        <div className="d-md-none bg-white bookings-mobile-cards">
           {paginated.map((booking) => (
             <div key={booking.id} className="card shadow-sm border-0 bg-white">
               <div className="card-body p-2 p-md-3">

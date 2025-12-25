@@ -107,7 +107,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => !isLastPage && onPageChange(currentPage + 1)}
             disabled={isLastPage}
           >
-            <span className="d-none d-sm-inline">Next</span>
+            <span className="d-none d-sm-inline">Last</span>
             <span className="d-sm-none">N</span>
           </button>
         </li>

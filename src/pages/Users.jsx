@@ -98,11 +98,10 @@ const Users = () => {
             <div className="card shadow-sm">
               <div className="card-body p-0">
 
-                {/* TOOLBAR - RIGHT END पर Delete + Pagination */}
                 <div className="p-2 p-md-3 border1 border-bottom bg-light">
                   <div className="row g-2 g-md-3 align-items-center">
 
-                    {/* LEFT: Search छोटी */}
+                    {/* LEFT: Search */}
                     <div className="col-12 col-md-auto" style={{ flex: '1 1 auto', minWidth: '200px', maxWidth: '30%  ' }}>
                       <SearchInput
                         value={search}
@@ -157,7 +156,7 @@ const Users = () => {
 
                 {/* DESKTOP TABLE */}
                 <div className="table-responsive d-none d-md-block"
-                  style={{ maxHeight: '580px', overflowY: 'auto' }}>
+                  style={{ maxHeight: '83vh', overflowY: 'auto' }}>
                   <table className="table table-hover mb-0 align-middle">
                     <thead className="table-light position-sticky top-0 bg-white border-bottom border-2 z-10">
                       <tr>

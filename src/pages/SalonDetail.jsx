@@ -25,10 +25,10 @@ const SalonDetail = () => {
   return (
     <Layout>
       {/* Wrapper to control total height */}
-      <div className="d-flex flex-column" style={{ height: 'calc(100vh - 100px)', maxWidth: PAGE_MAX_WIDTH, margin: '27px' }}>
+      <div className="d-flex flex-column mx-0 mx-lg-3 salon-detail-wrapper mt-4 p-1" style={{ height: 'calc(100vh - 100px)', maxWidth: PAGE_MAX_WIDTH }}>
 
         {/* 1. Header Section */}
-        <div className="card shadow-sm mb-3 border-0"
+        <div className="card shadow-sm mb-3 border-0 salon-detail-header"
           style={{ background: 'rgba(255, 255, 255, 0.95)', borderRadius: '15px' }}>
           <div className="card-body p-3 d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-3">
@@ -45,11 +45,11 @@ const SalonDetail = () => {
         </div>
 
         {/* Main Content Area - Taking remaining height */}
-        <div className="flex-grow-1 overflow-hidden">
+        <div className="flex-grow-1 overflow-hidden salon-detail-content">
           <div className="row g-3 h-100">
 
             {/* Left Column: Gallery & Hours */}
-            <div className="col-lg-7 d-flex flex-column h-100">
+            <div className="col-lg-7 d-flex flex-column h-100 salon-gallery-col">
               {/* Gallery (Scrollable) */}
               <div className="card shadow-sm border-0 mb-3 flex-grow-1 overflow-hidden" style={{ borderRadius: '15px' }}>
                 <div className="card-body d-flex flex-column h-100">
@@ -67,7 +67,7 @@ const SalonDetail = () => {
               </div>
 
               {/* Business Hours (Fixed height at bottom of left column) */}
-              <div className="card shadow-sm border-0 bg text-white" style={{ borderRadius: '15px', height: '180px' }}>
+              <div className="card shadow-sm border-0 bg text-white" style={{ borderRadius: '15px', minHeight: '120px' }}>
                 <div className="card-body d-flex flex-column justify-content-center text-center p-3">
                   <h6 className="small opacity-75 text-start"><i className="bi bi-clock me-2"></i>Business Hours</h6>
                   <h2 className="fw-bold mb-1">{salon.openingTime} - {salon.closingTime}</h2>
@@ -87,7 +87,7 @@ const SalonDetail = () => {
             </div>
 
             {/* Right Column: Services & Contact */}
-            <div className="col-lg-5 d-flex flex-column h-100">
+            <div className="col-lg-5 d-flex flex-column h-100 salon-services-col">
               {/* Services (Scrollable) */}
               <div className="card shadow-sm border-0 mb-3 flex-grow-1 overflow-hidden" style={{ borderRadius: '15px' }}>
                 <div className="card-body p-0 d-flex flex-column h-100">
@@ -96,17 +96,24 @@ const SalonDetail = () => {
                   </div>
                   <div className="list-group list-group-flush overflow-auto thin-scrollbar">
                     {salon.services.map((s) => (
-                      <div key={s.id} className="list-group-item p-3 d-flex justify-content-between">
-                        <div><div className="fw-bold small">{s.name}</div><small className="text-muted">{s.duration}m</small></div>
-                        <div className="fw-bold text-$dark">₹{s.price}</div>
+                      <div key={s.id} className="list-group-item p-3">
+                        <div className="d-flex justify-content-between flex-column flex-md-row gap-2 gap-md-0">
+                          <div>
+                            <div className="fw-bold small">{s.name}</div>
+                            <small className="text-muted">{s.duration}m</small><br />
+                            <small className="text-muted">{s.description}</small>
+                          </div>
+                          <div className="fw-bold text-$dark">₹{s.price}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
+
               {/* Contact (Fixed height at bottom of right column) */}
-              <div className="card shadow-sm border-0" style={{ borderRadius: '15px', height: '220px' }}>
+              <div className="card shadow-sm border-0 " style={{ borderRadius: '15px', height: '220px' }}>
                 <div className="card-body d-flex flex-column p-3">
                   <h6 className="fw-bold mb-2 small border-bottom pb-1">Contact</h6>
                   <div className="flex-grow-1">
@@ -115,7 +122,7 @@ const SalonDetail = () => {
                   </div>
                   <div className="d-flex gap-2 mt-2">
                     <button className="btn btn-dark btn-sm flex-grow-1 rounded-pill">Email</button>
-                    <button className="btn bg btn-sm flex-grow-1 rounded-pill">WhatsApp</button>
+                    <button className=" bg flex-grow-1 rounded-pill">WhatsApp</button>
                   </div>
                 </div>
               </div>
