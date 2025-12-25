@@ -6,6 +6,7 @@ import SearchInput from "../components/SearchInput.jsx";
 import Pagination from "../components/Pagination.jsx";
 import StatusBadge from "../components/StatusBadge.jsx";
 import { salons as salonData, cities } from "../data/mockData.js";
+import axios from "axios";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -16,6 +17,7 @@ const Salons = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  
 
   // Single Modal state for Add/Edit
   const [showModal, setShowModal] = useState(false);
@@ -32,14 +34,66 @@ const Salons = () => {
 
   });
 
-  const handleServiceChange = (index, value) => {
-    const newServices = [...formData.services];
-    newServices[index] = value;
-    setFormData({ ...formData, services: newServices });
+
+  const mapFormDataToApi = (formData) => {
+  return {
+    // ✅ Field mapping
+    salonName: formData.name,
+    ownerName: formData.ownerName,
+    phoneNumber: formData.phoneNumber,
+    email: formData.email,
+    addressLine1: formData.address?.split('\n')[0] || formData.address,
+    addressLine2: formData.address?.split('\n')[1] || '',
+    city: formData.city,
+    state: formData.state,
+    pincode: formData.pincode,
+    genderType: formData.gender?.toUpperCase(),
+    imageUrl: formData.images?.[0]?.preview || '',
+    
+    // ✅ Services
+     services: formData.services.map((service, index) => ({
+      serviceName: service.name,  
+      durationMinutes: Number(service.duration) || Number(service.durationMinutes),
+      price: Number(service.price),
+      description: service.description || ''
+    })),
+    
+    // ✅ Business Hours
+    businessHours: [
+      {
+        dayType: "weekdays",
+        isOpen: true,
+        openingTime: `${formData.openingTime}:00`,
+        closingTime: `${formData.closingTime}:00`
+      },
+      {
+        dayType: "sunday",
+        isOpen: false
+      }
+    ]
   };
+};
+
+const handleServiceChange = (index, field, value) => {
+  const newServices = [...formData.services];
+  newServices[index] = {
+    ...newServices[index],
+    [field]: value  // ✅ Proper field update
+  };
+  setFormData({ ...formData, services: newServices });
+};
+
+
 
   const addService = () => {
-    setFormData({ ...formData, services: [...formData.services, ""] });
+    setFormData({ ...formData, services: [...formData.services, { 
+        name: '',           // ✅ Service name
+        price: '',          // ✅ Price
+        duration: '',       // ✅ Duration
+        description: ''     // ✅ Description
+      }
+    ] 
+  });
   };
 
   const removeService = (index) => {
@@ -118,22 +172,36 @@ const Salons = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    const submitData = {
-      ...(modalMode === "edit" && { id: editingSalonId }),
-      ...formData,
-      images: formData.images.map(img => img.file)
-    };
-
-    // console.log(`${modalMode === "add" ? "New" : "Updated"} salon:`, submitData);
-    handleCloseModal();
-    alert(`${modalMode === "add" ? "Salon added" : "Salon updated"} successfully with ${formData.images.length} images!`);
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+    console.log('Raw formData.services:', formData.services);
+  
+  const payload = mapFormDataToApi(formData);
+  
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/salons/create`,
+      payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+    });
+    
+    if (response?.data?.status === 'SUCCESS') {
+      alert('Salon created successfully!');
+      handleCloseModal();
+    } else {
+      alert('Error: ' + result.message);
+    }
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message || 'Something went wrong';
+    console.error('API Error:', error.response?.data || error);
+    alert('Error: ' + errorMessage);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -658,7 +726,7 @@ const Salons = () => {
                                   type="text"
                                   className="form-control"
                                   placeholder="Service Name"
-                                  value={service.name}
+                                  value={service.name || ''}
                                   onChange={(e) => handleServiceChange(index, 'name', e.target.value)}
                                   required
                                 />
@@ -670,7 +738,7 @@ const Salons = () => {
                                     type="number"
                                     className="form-control"
                                     placeholder="Price"
-                                    value={service.price}
+                                    value={service.price || ''}
                                     onChange={(e) => handleServiceChange(index, 'price', e.target.value)}
                                     required
                                   />
@@ -682,7 +750,7 @@ const Salons = () => {
                                     type="number"
                                     className="form-control"
                                     placeholder="Duration"
-                                    value={service.duration}
+                                    value={service.duration || ''}
                                     onChange={(e) => handleServiceChange(index, 'duration', e.target.value)}
                                     required
                                   />
