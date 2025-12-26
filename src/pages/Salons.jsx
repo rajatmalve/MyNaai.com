@@ -17,6 +17,7 @@ const Salons = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
