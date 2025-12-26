@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown.jsx";
 
 // Icons definitions (SVG)
 const Icons = {
@@ -25,23 +26,24 @@ const navItems = [
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // Modal state
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const navigate = useNavigate();
 
-  // Modal confirm hone par logout handle karein
-  const handleLogoutConfirm = () => {
-    setShowLogoutModal(false);
-    setOpen(false);
-    navigate("/login");
+
+  // Profile dropdown close handler
+  const handleProfileClose = () => {
+    setShowProfileDropdown(false);
   };
 
   return (
     <div className="app-shell d-flex">
       {/* Desktop Sidebar */}
       <aside className="sidebar d-none d-md-flex flex-column p-3 gap-3 position-sticky top-0 vh-100">
-        <Link to="/" className="d-flex align-items-center gap-2 text-white fw-semibold fs-5 mb-2 text-decoration-none">
-          <Icons.Scissors /> Salon Admin
-        </Link>
+        <div className="d-flex flex-column gap-2 mb-3">
+          <Link  className="d-flex align-items-center gap-2 text-white fw-semibold fs-5 text-decoration-none">
+            <Icons.Scissors /> Salon
+          </Link>
+        </div>
         <nav className="nav flex-column gap-1">
           {navItems.map((item) => (
             <NavLink
@@ -57,122 +59,138 @@ const Layout = ({ children }) => {
             </NavLink>
           ))}
         </nav>
-        <div className="mt-auto">
-          <button 
-            className="btn btn-logout btn-sm w-100 mt-3 d-flex align-items-center justify-content-center" 
-            onClick={() => setShowLogoutModal(true)} // Modal open karega
-          >
-            <Icons.Logout /> Logout
-          </button>
+
+        <div className="mt-auto d-flex flex-column gap-2">
+          {/* Profile Section */}
+          <div className="d-flex align-items-center gap-3 p-2 rounded sidebar-profile">
+            <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                 style={{ width: '40px', height: '40px' }}>
+              <span style={{ fontSize: '1.2rem' }}>👤</span>
+            </div>
+            <div className="flex-grow-1">
+              <div className="text-white fw-medium small">Admin User</div>
+              <div className="text-white-50 small">Administrator</div>
+            </div>
+            <button
+              className="btn btn-link text-white p-0 profile-dropdown-btn"
+              onClick={() => {
+                console.log("Sidebar profile button clicked, current state:", showProfileDropdown);
+                setShowProfileDropdown(!showProfileDropdown);
+              }}
+              title="Profile Options"
+            >
+              <i className="bi bi-chevron-down"></i>
+            </button>
+          </div>
         </div>
       </aside>
+
+      {/* Desktop Profile Dropdown - positioned outside sidebar */}
+      <div className="d-none d-md-block">
+        {showProfileDropdown && (
+          <ProfileDropdown
+            isOpen={showProfileDropdown}
+            onClose={() => setShowProfileDropdown(false)}
+            position="desktop"
+          />
+        )}
+      </div>
 
       {/* Mobile + Desktop Main Content */}
       <div className="flex-grow-1 d-flex flex-column">
         {/* Mobile Topbar */}
-        <div className="d-md-none">
+        <div className="d-md-none position-relative">
           <header className="navbar bg-white shadow-sm sticky-top px-2 mobile-header-fixed">
             <div className="d-flex align-items-center justify-content-between w-100">
               <div className="d-flex align-items-center gap-2 min-w-0 flex-grow-1">
-                <button
-                  className="navbar-toggler p-1 border-0"
-                  type="button"
-                  onClick={() => setOpen(!open)}
-                  style={{ fontSize: '1.2rem' }}
-                >
-                  <span className="navbar-toggler-icon" />
-                </button>
-
                 <Link
                   to="/"
                   className="navbar-brand fw-semibold text-truncate m-0 d-flex align-items-center gap-2"
                   style={{ maxWidth: "150px", fontSize: '1rem' }}
-                  onClick={() => setOpen(false)}
                 >
                   <Icons.Scissors /> Salon
                 </Link>
               </div>
 
               <button
-                className="btn btn-outline-secondary btn-sm flex-shrink-0 d-flex align-items-center"
-                onClick={() => setShowLogoutModal(true)} // Modal open karega
-                style={{ fontSize: '0.85rem' }}
+                className="btn btn-outline-secondary btn-sm flex-shrink-0 d-flex align-items-center justify-content-center profile-btn"
+                onClick={() => {
+                  console.log("MOBILE Profile button clicked, current state:", showProfileDropdown);
+                  const newState = !showProfileDropdown;
+                  console.log("Setting showProfileDropdown to:", newState);
+                  setShowProfileDropdown(newState);
+                }}
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  padding: '0'
+                }}
+                title="Profile"
               >
-                <Icons.Logout />
-                <span className="d-none d-sm-inline">Logout</span>
+                <span style={{ fontSize: '1.2rem' }}>👤</span>
               </button>
             </div>
           </header>
 
-          {/* Mobile Dropdown Menu */}
-          {open && (
-            <div className="bg-white shadow-sm border-bottom d-md-none dropdown-menu show w-100 position-absolute">
-              <nav className="nav flex-column p-3 gap-2">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    end={item.path === "/"}
-                    className={({ isActive }) =>
-                      `nav-link d-flex align-items-center gap-2 ${isActive ? "active fw-semibold" : ""}`
-                    }
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.icon}
-                    {item.label}
-                  </NavLink>
-                ))}
-              </nav>
-            </div>
-          )}
+          {/* Profile Dropdown */}
+          <ProfileDropdown
+            isOpen={showProfileDropdown}
+            onClose={() => setShowProfileDropdown(false)}
+            position="mobile"
+          />
         </div>
 
         {/* Main Content Area */}
         <main className="flex-grow-1">
           <div className="container-fluid">{children}</div>
         </main>
+
+        {/* Mobile Bottom Navigation */}
+        <div className="d-md-none">
+          <nav className="navbar fixed-bottom bg-white border-top shadow-lg mobile-bottom-nav">
+            <div className="container-fluid d-flex justify-content-around align-items-center px-2">
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  `nav-link text-center p-2 mobile-nav-item ${isActive ? "active" : ""}`
+                }
+              >
+                <div className="d-flex flex-column align-items-center">
+                  <Icons.Users />
+                  <small className="mt-1 nav-text">Users</small>
+                </div>
+              </NavLink>
+
+              <NavLink
+                to="/salons"
+                className={({ isActive }) =>
+                  `nav-link text-center p-2 mobile-nav-item ${isActive ? "active" : ""}`
+                }
+              >
+                <div className="d-flex flex-column align-items-center">
+                  <Icons.Scissors />
+                  <small className="mt-1 nav-text">Salons</small>
+                </div>
+              </NavLink>
+
+              <NavLink
+                to="/bookings"
+                className={({ isActive }) =>
+                  `nav-link text-center p-2 mobile-nav-item ${isActive ? "active" : ""}`
+                }
+              >
+                <div className="d-flex flex-column align-items-center">
+                  <Icons.Calendar />
+                  <small className="mt-1 nav-text">Bookings</small>
+                </div>
+              </NavLink>
+            </div>
+          </nav>
+        </div>
       </div>
 
-      {/* --- Logout Confirmation Modal --- */}
-      {showLogoutModal && (
-        <div 
-          className="modal fade show d-block" 
-          tabIndex="-1" 
-          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} // Background overlay
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content shadow">
-              <div className="modal-header border-0 pb-0">
-                <h5 className="modal-title">Confirm Logout</h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={() => setShowLogoutModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body py-4 text-center">
-                <p className="mb-0 fs-5">Are you sure you want to logout?</p>
-              </div>
-              <div className="modal-footer border-0 pt-0">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary px-4" 
-                  onClick={() => setShowLogoutModal(false)}
-                >
-                  No
-                </button>
-                <button 
-                  type="button" 
-                  className="btn btn-danger px-4" 
-                  onClick={handleLogoutConfirm}
-                >
-                  Yes, Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

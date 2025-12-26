@@ -116,8 +116,27 @@ const Users = () => {
                     {/* RIGHT END: Actions + Pagination */}
                     <div className="col-12 col-md d-flex align-items-center justify-content-md-end gap-2 flex-wrap mt-2">
 
-                      {/* Bulk Actions (Delete & Clear) */}
+                      {/* Bulk Actions (Select All, Delete & Clear) */}
                       <div className="d-flex gap-1 flex-wrap align-items-center">
+                        <button
+                          className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                          onClick={() => {
+                            if (selectedUsers.length === paginated.length && paginated.length > 0) {
+                              setSelectedUsers([]);
+                            } else {
+                              setSelectedUsers(paginated.map(user => user.id));
+                            }
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="form-check-input me-1 mt-0"
+                            checked={selectedUsers.length === paginated.length && paginated.length > 0}
+                            readOnly
+                          />
+                          Select All
+                        </button>
+
                         <button
                           className={`btn btn-sm btn-danger d-flex align-items-center gap-1 ${selectedUsers.length > 0 ? '' : 'opacity-50 cursor-not-allowed'
                             }`}
@@ -237,10 +256,20 @@ const Users = () => {
                         <div className="card border-0 shadow-sm">
                           <div className="card-body py-3 px-3">
                             <div className="d-flex justify-content-between align-items-start mb-2">
-                              <div className="flex-grow-1 pe-2">
-                                <h6 className="mb-1 fw-semibold text-truncate">{user.name}</h6>
-                                <div className="text-muted small text-truncate">{user.email}</div>
-                                <small className="text-muted d-block text-truncate">{user.phone}</small>
+                              <div className="d-flex align-items-start gap-2 flex-grow-1">
+                                <div className="form-check mt-1">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    checked={selectedUsers.includes(user.id)}
+                                    onChange={() => handleUserSelect(user.id)}
+                                  />
+                                </div>
+                                <div className="flex-grow-1 pe-2">
+                                  <h6 className="mb-1 fw-semibold text-truncate">{user.name}</h6>
+                                  <div className="text-muted small text-truncate">{user.email}</div>
+                                  <small className="text-muted d-block text-truncate">{user.phone}</small>
+                                </div>
                               </div>
                               <StatusBadge status={user.status} />
                             </div>

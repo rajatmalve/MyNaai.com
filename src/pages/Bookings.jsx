@@ -60,7 +60,7 @@ const Bookings = () => {
   return (
     <Layout>
       {/* MAIN WRAPPER - Responsive spacing */}
-      <div className="page-content min-vh-100 d-flex flex-column gap-3 p-4">
+      <div className="page-content min-vh-100 d-flex flex-column gap-2 gap-md-3 p-2 p-md-3">
         
         {/* FILTERS + PAGINATION - WHITE BACKGROUND CARD (STICKY) */}
         <div className="card shadow-sm mb-1 mb-md-3 bg-white bookings-filter-sticky">
@@ -253,19 +253,23 @@ const Bookings = () => {
 
         {/* DESKTOP TABLE - SCROLLABLE AREA BELOW STICKY FILTERS */}
         <div
-          className="table-responsive d-none d-md-block mb-3 mb-md-4 bg-white bookings-table-scroll"
-          style={{ maxHeight: '79vh', overflow: 'auto' }}
+          className="table-responsive d-none d-md-block mb-2 mb-md-3 bg-white bookings-table-scroll"
+          style={{
+            maxHeight: 'calc(100dvh - 160px)',
+            maxHeight: 'calc(100vh - 160px)', /* Fallback */
+            overflow: 'auto'
+          }}
         >
           <div style={{ minHeight: '320px', backgroundColor: 'white' }}>
             <table className="table table-hover mb-0" >
               <thead className="table-light position-sticky top-0 bg-white border-bottom border-2" style={{ zIndex: '10' }}>
                 <tr>
-                  <th style={{ minWidth: '140px' }} className="px-2 px-md-3 py-2 border-bottom">User</th>
-                  <th style={{ minWidth: '150px' }} className="px-2 px-md-3 py-2 border-bottom">Salon</th>
-                  <th style={{ minWidth: '130px' }} className="px-2 px-md-3 py-2 border-bottom">Service</th>
-                  <th style={{ minWidth: '150px' }} className="px-2 px-md-3 py-2 border-bottom">Date & Time</th>
-                  <th style={{ minWidth: '110px' }} className="px-2 px-md-3 py-2 border-bottom ">Amount</th>
-                  <th style={{ minWidth: '120px' }} className="px-2 px-md-3 py-2 border-bottom">Status</th>
+                  <th style={{ minWidth: '120px', maxWidth: '140px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">User</th>
+                  <th style={{ minWidth: '120px', maxWidth: '150px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Salon</th>
+                  <th style={{ minWidth: '100px', maxWidth: '130px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Service</th>
+                  <th style={{ minWidth: '130px', maxWidth: '160px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Date & Time</th>
+                  <th style={{ minWidth: '80px', maxWidth: '110px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom ">Amount</th>
+                  <th style={{ minWidth: '100px', maxWidth: '120px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Status</th>
                 </tr>
               </thead>
               <tbody>
