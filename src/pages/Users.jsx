@@ -118,7 +118,7 @@ const Users = () => {
 
                       {/* Bulk Actions (Select All, Delete & Clear) */}
                       <div className="d-flex gap-1 flex-wrap align-items-center">
-                        <button
+                        {/* <button
                           className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
                           onClick={() => {
                             if (selectedUsers.length === paginated.length && paginated.length > 0) {
@@ -135,7 +135,7 @@ const Users = () => {
                             readOnly
                           />
                           Select All
-                        </button>
+                        </button> */}
 
                         <button
                           className={`btn btn-sm btn-danger d-flex align-items-center gap-1 ${selectedUsers.length > 0 ? '' : 'opacity-50 cursor-not-allowed'
@@ -177,9 +177,10 @@ const Users = () => {
                 <div className="table-responsive d-none d-md-block"
                   style={{ maxHeight: '83vh', overflowY: 'auto' }}>
                   <table className="table table-hover mb-0 align-middle">
-                    <thead className="table-light position-sticky top-0 bg-white border-bottom border-2 z-10">
+                    <thead className="table-light position-sticky  top-0 bg-white border-bottom z-10">
                       <tr>
-                        <th scope="col" className="py-3 ps-4 pe-2 w-auto">
+                        <th scope="col" className="py-2 ps-3 pe-2 w-auto text-center">#</th>
+                        <th scope="col" className="py-2 ps-4 pe-2 w-auto">
                           <div className="form-check m-0">
                             <input
                               className="form-check-input shadow-none"
@@ -190,16 +191,19 @@ const Users = () => {
                             />
                           </div>
                         </th>
-                        <th scope="col" className="py-3 pe-3 text-nowrap">Name</th>
-                        <th scope="col" className="py-3 pe-3 text-nowrap">Email / Phone</th>
-                        <th scope="col" className="py-3 pe-2 text-nowrap">Status</th>
-                        <th scope="col" className="py-3 pe-5 text-end text-nowrap">Created</th>
-                        <th scope="col" className="py-3 pe-4 text-end text-nowrap">Action</th>
+                        <th scope="col" className="py-2 pe-3 text-nowrap">Name</th>
+                        <th scope="col" className="py-2 pe-3 text-nowrap">Email / Phone</th>
+                        <th scope="col" className="py-2 pe-2 text-nowrap">Status</th>
+                        <th scope="col" className="py-2 pe-5 text-end text-nowrap">Created</th>
+                        <th scope="col" className="py-2 pe-4 text-end text-nowrap">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {paginated.map((user) => (
+                      {paginated.map((user, index) => (
                         <tr key={user.id} className="align-middle">
+                          <td className="ps-3 pe-2 text-center fw-medium text-muted">
+                            {(currentPage - 1) * ITEMS_PER_PAGE + index + 1}
+                          </td>
                           <td className="ps-4 pe-2">
                             <div className="form-check m-0">
                               <input
@@ -239,7 +243,7 @@ const Users = () => {
                       ))}
                       {paginated.length === 0 && (
                         <tr>
-                          <td colSpan={6} className="text-center text-muted py-5">
+                          <td colSpan={7} className="text-center text-muted py-5">
                             No users found
                           </td>
                         </tr>
