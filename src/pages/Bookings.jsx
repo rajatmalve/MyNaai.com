@@ -264,7 +264,7 @@ const Bookings = () => {
             <table className="table table-hover mb-0" >
               <thead className="table-light position-sticky top-0 bg-white border-bottom z-10">
                 <tr>
-                  <th style={{ minWidth: '50px', maxWidth: '60px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom text-center">#</th>
+                  <th style={{ minWidth: '50px', maxWidth: '60px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom text-center">No.</th>
                   <th style={{ minWidth: '120px', maxWidth: '140px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">User</th>
                   <th style={{ minWidth: '120px', maxWidth: '150px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Salon</th>
                   <th style={{ minWidth: '100px', maxWidth: '130px' }} className="px-1 px-md-2 px-lg-3 py-2 border-bottom">Service</th>

@@ -179,7 +179,6 @@ const Users = () => {
                   <table className="table table-hover mb-0 align-middle">
                     <thead className="table-light position-sticky  top-0 bg-white border-bottom z-10">
                       <tr>
-                        <th scope="col" className="py-2 ps-3 pe-2 w-auto text-center">#</th>
                         <th scope="col" className="py-2 ps-4 pe-2 w-auto">
                           <div className="form-check m-0">
                             <input
@@ -191,20 +190,18 @@ const Users = () => {
                             />
                           </div>
                         </th>
+                        <th scope="col" className="py-2 ps-3 pe-2 w-auto ">No.</th>
                         <th scope="col" className="py-2 pe-3 text-nowrap">Name</th>
                         <th scope="col" className="py-2 pe-3 text-nowrap">Email / Phone</th>
                         <th scope="col" className="py-2 pe-2 text-nowrap">Status</th>
-                        <th scope="col" className="py-2 pe-5 text-end text-nowrap">Created</th>
+                        <th scope="col" className="py-2 pe-5 text-end ">Created</th>
                         <th scope="col" className="py-2 pe-4 text-end text-nowrap">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       {paginated.map((user, index) => (
                         <tr key={user.id} className="align-middle">
-                          <td className="ps-3 pe-2 text-center fw-medium text-muted">
-                            {(currentPage - 1) * ITEMS_PER_PAGE + index + 1}
-                          </td>
-                          <td className="ps-4 pe-2">
+                           <td className="ps-4 pe-2">
                             <div className="form-check m-0">
                               <input
                                 className="form-check-input shadow-none"
@@ -214,6 +211,10 @@ const Users = () => {
                               />
                             </div>
                           </td>
+                          <td className="ps-3 pe-2 fw-medium text-muted">
+                            {(currentPage - 1) * ITEMS_PER_PAGE + index + 1}
+                          </td>
+                         
                           <td className="fw-semibold pe-3">
                             <div className="text-truncate" style={{ maxWidth: '180px' }}>
                               {user.name}
@@ -228,7 +229,7 @@ const Users = () => {
                           <td className="pe-1">
                             <StatusBadge status={user.status} />
                           </td>
-                          <td className="text-muted text-end small pe-5 text-nowrap">
+                          <td className="text-muted text-end small pe-5 ">
                             {user.createdAt}
                           </td>
                           <td className="text-end pe-4">
