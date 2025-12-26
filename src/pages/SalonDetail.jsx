@@ -25,7 +25,7 @@ const SalonDetail = () => {
   return (
     <Layout>
       {/* Wrapper to control total height */}
-      <div className="d-flex flex-column mx-0 mx-lg-3 salon-detail-wrapper mt-4 p-1" style={{ height: 'calc(100vh - 100px)', maxWidth: PAGE_MAX_WIDTH }}>
+      <div className="d-flex flex-column mx-0 mx-lg-3 salon-detail-wrapper mt-4 p-1" style={{ height: 'calc(100dvh - 60px)', height: 'calc(100vh - 60px)', maxWidth: PAGE_MAX_WIDTH }}>
 
         {/* 1. Header Section */}
         <div className="card shadow-sm mb-3 border-0 salon-detail-header"
